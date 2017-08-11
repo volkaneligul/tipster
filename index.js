@@ -7,10 +7,9 @@ const app = express();
 
 // Here we find an appropriate database to connect to, defaulting to
 // localhost if we don't find one.
-var uristring =
-process.env.MONGOLAB_URI ||
-process.env.MONGOHQ_URL ||
-'mongodb://localhost/HelloMongoose';
+var uristring = 
+  process.env.MONGODB_URI || 
+  'mongodb://localhost/HelloMongoose';
 
 // connect to mongodb
 //mongoose.connect('mongodb://localhost/ninjago');
