@@ -7,7 +7,7 @@ const app = express();
 
 // connect to mongodb
 //mongoose.connect('mongodb://localhost/ninjago');
-mongoose.connect('mongodb://volkaneligul:mlab3819882@ds137441.mlab.com:37441/ninjago', {
+mongoose.connect('mongodb://heroku_cd8j2zbv:mlab3819882@ds161262.mlab.com:61262/heroku_cd8j2zbv', {
     useMongoClient: true
 })
 mongoose.Promise = global.Promise;
