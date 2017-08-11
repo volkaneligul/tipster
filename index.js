@@ -5,12 +5,29 @@ const mongoose = require('mongoose');
 // set up express app
 const app = express();
 
+// Here we find an appropriate database to connect to, defaulting to
+// localhost if we don't find one.
+var uristring =
+process.env.MONGOLAB_URI ||
+process.env.MONGOHQ_URL ||
+'mongodb://localhost/HelloMongoose';
+
 // connect to mongodb
 //mongoose.connect('mongodb://localhost/ninjago');
-mongoose.connect('mongodb://heroku_cd8j2zbv:a3pci2krism8oqcun4bgs3e7am@ds161262.mlab.com:61262/heroku_cd8j2zbv', {
-    useMongoClient: true
-})
-mongoose.Promise = global.Promise;
+//mongoose.connect('mongodb://heroku_cd8j2zbv:a3pci2krism8oqcun4bgs3e7am@ds161262.mlab.com:61262/heroku_cd8j2zbv', {
+//    useMongoClient: true
+//})
+//mongoose.Promise = global.Promise;
+
+// Makes connection asynchronously.  Mongoose will queue up database
+// operations and release them when the connection is complete.
+mongoose.connect(uristring, function (err, res) {
+    if (err) {
+    console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+    } else {
+    console.log ('Succeeded connected to: ' + uristring);
+    }
+});
 
 //set up static files
 app.use(express.static('public'));
