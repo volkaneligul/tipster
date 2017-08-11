@@ -20,8 +20,7 @@ var uristring =
 //})
 //mongoose.Promise = global.Promise;
 
-// Makes connection asynchronously.  Mongoose will queue up database
-// operations and release them when the connection is complete.
+// connect to mongodb
 mongoose.connect(uristring, { useMongoClient: true },  function (err, res) {
     if (err) {
     console.log ('ERROR connecting to: ' + uristring + '. ' + err);
