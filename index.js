@@ -30,8 +30,13 @@ mongoose.connect(uristring, { useMongoClient: true },  function (err, res) {
 mongoose.Promise = global.Promise;
 */
 
+
 //set up static files
 app.use(express.static('public'));
+
+app.get("/", function(req, res) {
+  res.sendFile(path.join(__dirname, "public/index.html"));
+});
 
 // use body-parser middleware
 app.use(bodyParser.json());
