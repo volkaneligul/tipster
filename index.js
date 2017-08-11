@@ -42,7 +42,7 @@ app.get('/', function(req, res) {
 app.use(bodyParser.json());
 
 // initialize routes
-app.use('/api', require('./routes/api'));
+//app.use('/api', require('./routes/api'));
 
 // error handling middleware
 app.use(function(err, req, res, next){
