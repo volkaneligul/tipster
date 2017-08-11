@@ -46,6 +46,7 @@ app.use(function(err, req, res, next){
 });
 
 // listen for requests
-app.listen(app.get('port'), function() {
-  console.log("Node app is running at localhost:" + app.get('port')); 
+// listen for requests
+app.listen(process.env.port || 4000, function(){
+    console.log('now listening for requests');
 });
