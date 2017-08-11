@@ -21,7 +21,7 @@ var uristring =
 //mongoose.Promise = global.Promise;
 
 // Makes connection asynchronously.  Mongoose will queue up database
-/* operations and release them when the connection is complete.
+// operations and release them when the connection is complete.
 mongoose.connect(uristring, { useMongoClient: true },  function (err, res) {
     if (err) {
     console.log ('ERROR connecting to: ' + uristring + '. ' + err);
@@ -30,8 +30,6 @@ mongoose.connect(uristring, { useMongoClient: true },  function (err, res) {
     }
 });
 mongoose.Promise = global.Promise;
-*/
-
 
 //set up static files
 app.use(express.static('public'));
@@ -46,10 +44,6 @@ app.use('/api', require('./routes/api'));
 app.use(function(err, req, res, next){
     console.log(err); // to see properties of message in our console
     res.status(422).send({error: err.message});
-});
-
-app.get('/', function(request, response) {
-  response.send('Hello World!')
 });
 
 // listen for requests
