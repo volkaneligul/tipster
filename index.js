@@ -32,6 +32,12 @@ mongoose.Promise = global.Promise;
 //set up static files
 app.use(express.static('public'));
 
+app.get('/', function(req, res) {
+
+    // ejs render automatically looks in the views folder
+    res.render('index');
+});
+
 // use body-parser middleware
 app.use(bodyParser.json());
 
