@@ -5,8 +5,6 @@ const mongoose = require('mongoose');
 // set up express app
 const app = express();
 
-app.set('port', (process.env.PORT || 5000));
-
 // Here we find an appropriate database to connect to, defaulting to
 // localhost if we don't find one.
 var uristring = 
@@ -45,7 +43,6 @@ app.use(function(err, req, res, next){
     res.status(422).send({error: err.message});
 });
 
-// listen for requests
 // listen for requests
 app.listen(process.env.PORT || 4000, function(){
     console.log('now listening for requests');
