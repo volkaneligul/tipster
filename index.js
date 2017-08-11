@@ -9,7 +9,7 @@ const app = express();
 // localhost if we don't find one.
 var uristring = 
   process.env.MONGODB_URI || 
-  'mongodb://localhost/HelloMongoose';
+  'mongodb://localhost/ninjago';
 
 // connect to mongodb
 //mongoose.connect('mongodb://localhost/ninjago');
@@ -20,13 +20,14 @@ var uristring =
 
 // Makes connection asynchronously.  Mongoose will queue up database
 // operations and release them when the connection is complete.
-mongoose.connect(uristring, function (err, res) {
+mongoose.connect(uristring, { useMongoClient: true },  function (err, res) {
     if (err) {
     console.log ('ERROR connecting to: ' + uristring + '. ' + err);
     } else {
     console.log ('Succeeded connected to: ' + uristring);
     }
 });
+mongoose.Promise = global.Promise;
 
 //set up static files
 app.use(express.static('public'));
