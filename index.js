@@ -50,7 +50,10 @@ app.use(function(err, req, res, next){
     res.status(422).send({error: err.message});
 });
 
-// listen for requests
+/* listen for requests
 app.listen(process.env.port || 4000, function(){
     console.log('now listening for requests');
 });
+*/
+var port_number = server.listen(process.env.PORT || 4000);
+app.listen(port_number);
