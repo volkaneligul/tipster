@@ -30,19 +30,13 @@ mongoose.connect(uristring, { useMongoClient: true },  function (err, res) {
 mongoose.Promise = global.Promise;
 
 //set up static files
-app.use(express.static('public'));
-
-app.get('/', function(req, res) {
-
-    // ejs render automatically looks in the views folder
-    res.render('public/index');
-});
+app.use(express.static(__dirname + '/public'));
 
 // use body-parser middleware
 app.use(bodyParser.json());
 
 // initialize routes
-//app.use('/api', require('./routes/api'));
+app.use('/api', require('./routes/api'));
 
 // error handling middleware
 app.use(function(err, req, res, next){
