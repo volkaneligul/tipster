@@ -1,18 +1,11 @@
-const express = require('express');
-// set up express app
-const app = express();
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
-
-
-// Here we find an appropriate database to connect to, defaulting to
-// localhost if we don't find one.
-var uristring = 
-  process.env.MONGODB_URI || 
-  'mongodb://localhost:27017/tipster';
+const express = require('express'),
+app = express(),
+bodyParser = require('body-parser'),
+cors = require('cors'),
+mongoose = require('mongoose'),
+config = require('./config/DB'),
+session = require('express-session'),
+MongoStore = require('connect-mongo')(session);
 
 // connect to mongodb
 //mongoose.connect('mongodb://localhost/ninjago');
@@ -22,14 +15,11 @@ var uristring =
 //mongoose.Promise = global.Promise;
 
 // connect to mongodb
-mongoose.connect(uristring, { useMongoClient: true },  function (err, res) {
-    if (err) {
-    console.log ('ERROR connecting to: ' + uristring + '. ' + err);
-    } else {
-    console.log ('Succeeded connected to: ' + uristring);
-    }
-});
 mongoose.Promise = global.Promise;
+mongoose.connect(config.DB).then(() => { console.log('Database is connected') },
+    err => { console.log('Can not connect to the database'+ err) }
+);
+
 var db = mongoose.connection;
 
 //handle mongo error
@@ -55,9 +45,12 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(cors());
+
 // initialize routes
 app.use('/api', require('./routes/api'));
 app.use('/user', require('./routes/user'));
+app.use('/item', require('./routes/item'));
 
 // error handling middleware
 app.use(function(err, req, res, next){
