@@ -19,27 +19,33 @@ export default {
   },
   plugins: [],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['env']
-          }
+        loader: 'babel-loader',
+        options: {
+          presets: ['env']
         }
       },
-      {test: /\.css$/, loaders: ['style','css']},
+      {
+        test: /\.css$/, 
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader"
+          }
+        ]
+      },
       {
         // Ask webpack to check: If this file ends with .vue, then apply some transforms
         test: /\.vue$/,
         // don't transform node_modules folder (which don't need to be compiled)
         exclude: /(node_modules|bower_components)/,
         // Transform it with vue
-        use: {
-          loader: 'vue-loader'
-        }
+        loader: 'vue-loader'
       }
     ]
   }

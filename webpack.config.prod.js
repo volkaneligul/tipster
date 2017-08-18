@@ -1,11 +1,15 @@
 import path from 'path';
 import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackMd5Hash from 'webpack-md5-hash';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
   devtool: 'source-map',
-  entry: './src/main.js',
+  entry: {
+    vendor: path.resolve(__dirname, 'src/vendor'),
+    main: path.resolve( __dirname, 'src/main')
+  },
   target: 'web',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -25,34 +29,58 @@ export default {
       name: 'vendor'
     }),
 
-    // Eliminate duplicate packages when generating bundle
-    new webpack.optimize.DedupePlugin(),
+    // Create HTML file that includes reference to bundled JS.
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true
+      },
+      inject: true
+    }),
+
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false
+    }),
 
     // Minify JS
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true
+    })
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['env']
-          }
+        loader: 'babel-loader',
+        options: {
+          presets: ['env']
         }
       },
-      {test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap')},
+      {
+        test: /\.css$/, 
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader"
+        })
+      },
       {
         // Ask webpack to check: If this file ends with .vue, then apply some transforms
         test: /\.vue$/,
         // don't transform node_modules folder (which don't need to be compiled)
         exclude: /(node_modules|bower_components)/,
         // Transform it with vue
-        use: {
-          loader: 'vue-loader'
-        }
+        loader: 'vue-loader'
       }
     ]
   }
