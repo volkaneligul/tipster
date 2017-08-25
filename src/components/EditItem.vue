@@ -37,14 +37,14 @@
         methods: {
             getItem()
             {
-              let uri = 'http://localhost:4000/item/edit/' + this.$route.params.id;
+              let uri = '/item/edit/' + this.$route.params.id;
                 this.axios.get(uri).then((response) => {
                     this.item = response.data;
                 });
             },
             updateItem()
             {
-              let uri = 'http://localhost:4000/item/update/' + this.$route.params.id;
+              let uri = '/item/update/' + this.$route.params.id;
                 this.axios.post(uri, this.item).then((response) => {
                   this.$router.push({name: 'DisplayItem'});
                 });

@@ -33,7 +33,7 @@
     },
     methods: {
       addItem(){
-        let uri = 'http://localhost:4000/item/add';
+        let uri = '/item/add';
         this.axios.post(uri, this.item).then((response) => {
           this.$router.push({name: 'DisplayItem'})
         })

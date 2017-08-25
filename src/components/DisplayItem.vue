@@ -46,14 +46,14 @@
         methods: {
             fetchItems()
             {
-              let uri = 'http://localhost:4000/item';
+              let uri = '/item';
               this.axios.get(uri).then((response) => {
                   this.items = response.data;
               });
             },
             deleteItem(id)
             {
-              let uri = 'http://localhost:4000/item/delete/'+id;
+              let uri = '/item/delete/'+id;
               this.items.splice(id, 1);
               this.axios.get(uri);
             }
