@@ -1,1 +1,1 @@
-web: npm run postbuild
+web: npm run serve
