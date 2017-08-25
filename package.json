@@ -13,9 +13,7 @@
     "clean-dist": "rimraf ./dist && mkdir dist",
     "prebuild": "npm-run-all clean-dist lint",
     "build": "babel-node buildScripts/build.js",
-    "postbuild": "babel-node buildScripts/distServer.js",
-    "preserve": "babel buildScripts -d dist",
-    "serve": "node dist/index.js"
+    "postbuild": "babel-node buildScripts/distServer.js"
   },
   "repository": {
     "type": "git",
