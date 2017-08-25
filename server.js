@@ -39,7 +39,7 @@ app.use(session({
 }));
 
 //set up static files
-app.use(express.static('public'));
+app.use(express.static('dist'));
 
 // use body-parser middleware
 app.use(bodyParser.json());
